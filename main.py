@@ -3,10 +3,9 @@ import sqlite3
 import CONFIG
 
 bot = telebot.TeleBot(CONFIG.TOKEN)
-a = []
+
 @bot.message_handler(content_types=["text"])
 def repeat_all_messages(message): # Название функции не играет никакой роли
-    a.append(message)
     id = message.text
     bot.send_message(message.chat.id, get_item_info(id))
 
