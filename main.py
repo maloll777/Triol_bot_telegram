@@ -1,20 +1,17 @@
 import telebot
-import sqlite3
 import CONFIG
+
+from TRIOL_lib import get_image_product, get_page_product, get_item_info
 
 bot = telebot.TeleBot(CONFIG.TOKEN)
 
-@bot.message_handler(content_types=["text"])
-def repeat_all_messages(message): # Название функции не играет никакой роли
-    id = message.text
-    bot.send_message(message.chat.id, get_item_info(id))
 
-def get_item_info(id) :
-    con = sqlite3.connect('./TRIOL.db')
-    cursor = con.cursor()
-    cursor.execute('select name, description FROM Product where item_number = ' + id)
-    out = cursor.fetchall()[0]
-    return out[0] + '\n\n' + out[1]
+@bot.message_handler(content_types=["text"])
+def send_info_product(message):
+    id_item = message.text
+    bot.send_message(message.chat.id, get_item_info(id_item))
+    bot.send_photo(message.chat.id, get_image_product(get_page_product(id_item)))
+
 
 if __name__ == '__main__':
-     bot.infinity_polling()
+    bot.infinity_polling()
