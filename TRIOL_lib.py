@@ -1,5 +1,6 @@
 import requests
 import sqlite3
+from CONFIG import DataBase
 
 
 def get_page_product(id_item):
@@ -60,7 +61,7 @@ def get_info_item(product_page_link):
     return out
 
 
-def get_image_product(product_page_link):
+def get_image_product_amma_pet(product_page_link):
     # Поиск картинки товара на сайте amma.pet
     # возвращает ссылку на первую картинку
 
@@ -89,7 +90,7 @@ def get_item_info(id_item):
     # возвращает строку и наименованием и описанием товара
     # Ищет информацию в БД
 
-    con = sqlite3.connect('./TRIOL.db')
+    con = sqlite3.connect(DataBase)
     cursor = con.cursor()
     cursor.execute('select name, description FROM Product where item_number = ' + id_item)
     try:
@@ -98,3 +99,12 @@ def get_item_info(id_item):
         return 'Описание товара не найдено'
 
     return out[0] + '\n\n' + out[1]
+
+
+def get_image_product(id_item = 12111001):
+    # ищет фото торава по id
+    con = sqlite3.connect(DataBase)
+    cursor = con.cursor()
+
+    cursor.execute('SELECT image from Image_Product WHERE item_number = ' + id_item)
+    return cursor.fetchone()[0]

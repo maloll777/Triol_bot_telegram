@@ -14,7 +14,7 @@ def send_info_product(message):
         return 0
 
     bot.send_message(message.chat.id, get_item_info(id_item))
-    bot.send_photo(message.chat.id, get_image_product(get_page_product(id_item)))
+    bot.send_photo(message.chat.id, get_image_product(id_item))
 
 
 if __name__ == '__main__':
