@@ -95,6 +95,7 @@ def get_item_info(id_item):
     cursor.execute('select name, description FROM Product where item_number = ' + id_item)
     try:
         out = cursor.fetchall()[0]
+        print(out)
     except IndexError:
         return 'Описание товара не найдено'
 
@@ -106,5 +107,5 @@ def get_image_product(id_item = 12111001):
     con = sqlite3.connect(DataBase)
     cursor = con.cursor()
 
-    cursor.execute('SELECT image from Image_Product WHERE item_number = ' + id_item)
+    cursor.execute('SELECT Image FROM Image WHERE item_number =' + id_item)
     return cursor.fetchone()[0]

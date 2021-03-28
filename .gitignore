@@ -2,3 +2,4 @@ CONFIG*
 __pycache__/
 venv/
 .idea/
+TRIOL.db
